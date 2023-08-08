@@ -88,6 +88,21 @@ function set_constants!(tree::Node{T}, constants::AbstractVector{T}) where {T}
     return nothing
 end
 
+function set_constants(tree::Node{T}, constants::AbstractVector{T}) where {T}
+    if tree.degree == 0
+        if tree.constant
+            tree.val = constants[1]
+        end
+    elseif tree.degree == 1
+        set_constants!(tree.l, constants)
+    else
+        numberLeft = count_constants(tree.l)
+        set_constants!(tree.l, constants)
+        set_constants!(tree.r, @view constants[(numberLeft + 1):end])
+    end
+    return nothing
+end
+
 ## Assign index to nodes of a tree
 # This will mirror a Node struct, rather
 # than adding a new attribute to Node.

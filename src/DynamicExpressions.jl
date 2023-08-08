@@ -23,7 +23,7 @@ using Reexport
     has_operators,
     has_constants,
     get_constants,
-    set_constants,
+    set_constants!,
     is_constant
 @reexport import .OperatorEnumModule: AbstractOperatorEnum
 @reexport import .OperatorEnumConstructionModule:
